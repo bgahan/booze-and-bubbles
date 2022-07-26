@@ -12,11 +12,38 @@ import Home from './pages/Home';
 import AppNavbar from './components/Navbar';
 
 function App() {
+  const httpLink = createHttpLink({
+    uri: "http://localhost:3001/graphql",
+  });
+  
+  const authLink = setContext((_, { headers }) => {
+    const token = localStorage.getItem('id_token');
+    return {
+      headers: {
+        ...headers,
+        authorization: token ? `Bearer ${token}` : '',
+      },
+    };
+  });
+  
+  const client = new ApolloClient({
+    link: authLink.concat(httpLink),
+    cache: new InMemoryCache(),
+  });
+
   return (
-    <div className="App">
-      <AppNavbar />
-      <Home />
-    </div>
+    <ApolloProvider client={client}>
+      <Router>
+        <>
+          <AppNavbar />
+          <Switch>
+            <Route exact path='/' component={Home} />
+            <Route exact path='/saved' component={SavedDrinks} />
+            <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
+          </Switch>
+        </>
+      </Router>
+    </ApolloProvider>
   );
 }
 
