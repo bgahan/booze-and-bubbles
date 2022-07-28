@@ -22,27 +22,28 @@ const Home = () => {
         }
 
         try {
-            const response = await searchGoogleBooks(searchInput);
+            const response = await searchCocktails(searchInput);
 
             if (!response.ok) {
                 throw new Error('something went wrong!');
             }
 
-            const { items } = await response.json();
+            const { drinks } = await response.json();
+            console.log(drinks)
 
-            const drinkData = items.map((drink) => ({
-                idDrink: drink.id,
-                strDrink: drink.strDrink || ['No drink to display'],
+            const drinkData = drinks.map((drink) => ({
+                idDrink: drink.idDrink,
+                strDrink: drink.strDrink, 
                 strInstructions: drink.strInstructions,
                 strDrinkThumb: drink.strDrinkThumb,
             }));
 
-            setSearchedDrinks(bookData);
+            setSearchedDrinks(drinkData);
             setSearchInput('');
         } catch (err) {
             console.error(err);
         }
-
+    }
         return (
             <>
                 <Jumbotron fluid className='text-light bg-dark'>
@@ -68,45 +69,41 @@ const Home = () => {
                     </Container>
                 </Jumbotron>
 
-                <div className="card-display">
-                    <Card style={{ width: '18rem' }} className="m-3">
-                        <Card.Img variant="top" src='/images/margarita.jpeg' />
-                        <Card.Body>
-                            <Card.Title>Margarita</Card.Title>
-                            <Card.Text>
-                                Some quick example text to build on the card title and make up the
-                                bulk of the card's content.
-                            </Card.Text>
-                            <Button variant="primary">Get the recipe!</Button>
-                        </Card.Body>
-                    </Card>
-
-                    <Card style={{ width: '18rem' }} className="m-3">
-                        <Card.Img variant="top" src="/images/moscow-mule.jpeg" />
-                        <Card.Body>
-                            <Card.Title>Moscow Mule</Card.Title>
-                            <Card.Text>
-                                Some quick example text to build on the card title and make up the
-                                bulk of the card's content.
-                            </Card.Text>
-                            <Button variant="primary">Get the recipe!</Button>
-                        </Card.Body>
-                    </Card>
-
-                    <Card style={{ width: '18rem' }} className="m-3">
-                        <Card.Img variant="top" src="/images/pina-colada.jpeg" />
-                        <Card.Body>
-                            <Card.Title>Piña Colada</Card.Title>
-                            <Card.Text>
-                                Some quick example text to build on the card title and make up the
-                                bulk of the card's content.
-                            </Card.Text>
-                            <Button variant="primary">Get the recipe!</Button>
-                        </Card.Body>
-                    </Card>
-                </div>
+                <Container>
+                    <h2>
+                        {searchedDrinks.length
+                            ? `Viewing ${searchedDrinks.length} results:`
+                            : 'Enter a cocktail!'}
+                    </h2>
+                    <CardColumns>
+                        {searchedDrinks.map((drink) => {
+                            return (
+                                <Card key={drink.idDrink} border='dark'>
+                                    {drink.strDrinkThumb ? (
+                                        <Card.Img src={drink.strDrinkThumb} alt={`The cover for ${drink.strDrink}`} variant='top' />
+                                    ) : null}
+                                    <Card.Body>
+                                        <Card.Title>{drink.strDrink}</Card.Title>
+                                        
+                                        <Card.Text>{drink.strInstructions}</Card.Text>
+                                        {/* {Auth.loggedIn() && (
+                                            <Button
+                                                disabled={savedDrinkIds?.some((savedDrinkId) => savedDrinkId === book.bookId)}
+                                                className='btn-block btn-info'
+                                                onClick={() => handleSaveBook(book.bookId)}>
+                                                {savedBookIds?.some((savedBookId) => savedBookId === book.bookId)
+                                                    ? 'This book has already been saved!'
+                                                    : 'Save this Book!'}
+                                            </Button>
+                                        )} */}
+                                    </Card.Body>
+                                </Card>
+                            );
+                        })}
+                    </CardColumns>
+                </Container>
             </>
         )
     }
 
-    export default Home
+export default Home
