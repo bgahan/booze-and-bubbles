@@ -5,7 +5,8 @@ const typeDefs = gql`
     _id: ID
     username: String
     email: String
-    cocktails: [Cocktail]
+    drinkCount
+    savedCocktails: [Cocktail]
   }
 
   type Cocktail {
@@ -42,7 +43,8 @@ const typeDefs = gql`
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    addCocktail(input: savedCocktail): User
+    saveCocktail(input: savedCocktail): User
+    removeCocktail(idDrink: String!): User
   }
 
   `;
