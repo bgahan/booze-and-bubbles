@@ -5,7 +5,7 @@ const typeDefs = gql`
     _id: ID
     username: String
     email: String
-    drinkCount
+    drinkCount: Int
     savedCocktails: [Cocktail]
   }
 

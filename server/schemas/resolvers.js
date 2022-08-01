@@ -57,7 +57,7 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
         },
-        addCocktail: async (parent, args, context) => {
+        saveCocktail: async (parent, args, context) => {
             if (context.user) {
                 const cocktail = await Cocktail.create({ ...args, username: context.user.username });
 
