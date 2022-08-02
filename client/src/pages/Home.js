@@ -86,16 +86,11 @@ const Home = () => {
                                         <Card.Title>{drink.strDrink}</Card.Title>
                                         
                                         <Card.Text>{drink.strInstructions}</Card.Text>
-                                        {/* {Auth.loggedIn() && (
-                                            <Button
-                                                disabled={savedDrinkIds?.some((savedDrinkId) => savedDrinkId === book.bookId)}
-                                                className='btn-block btn-info'
-                                                onClick={() => handleSaveBook(book.bookId)}>
-                                                {savedBookIds?.some((savedBookId) => savedBookId === book.bookId)
-                                                    ? 'This book has already been saved!'
-                                                    : 'Save this Book!'}
+                                        {Auth.loggedIn() && (
+                                            <Button>
+                                                Save Drink
                                             </Button>
-                                        )} */}
+                                        )}
                                     </Card.Body>
                                 </Card>
                             );
