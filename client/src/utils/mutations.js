@@ -42,7 +42,7 @@ export const SAVE_COCKTAIL = gql`
 `;
 
 export const REMOVE_COCKTAIL = gql`
-  mutation removeCocktail($idDrink: ID!) {
+  mutation removeCocktail($idDrink: String!) {
     removeCocktail(idDrink: $idDrink) {
       username
       _id
