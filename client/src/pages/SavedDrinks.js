@@ -16,7 +16,7 @@ const SaveDrinks = (props) => {
         <>
             <Jumbotron fluid className='text-light bg-dark'>
                 <Container>
-                    <h1>Saved Drinks</h1>
+                    <h1>My Drinks</h1>
                 </Container>
             </Jumbotron>
         </>
