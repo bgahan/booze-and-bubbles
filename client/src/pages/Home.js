@@ -59,30 +59,31 @@ const Home = () => {
             console.error(err);
         }
     }
-    return (
-        <>
-            <Jumbotron fluid className='text-light bg-dark'>
-                <Container>
-                    <h1>Search for Drinks!</h1>
-                    <Form onSubmit={handleFormSubmit}>
-                        <Form.Group className="mb-2" controlId="searchForm">
-                            <Form.Control
-                                name="searchInput"
-                                value={searchInput}
-                                onChange={(e) => setSearchInput(e.target.value)}
-                                type="text"
-                                placeholder="Enter drink name!" />
-                            <Form.Text className="text-muted">
-                                Example: 'margarita' or 'strawberry daiquiri'
-                            </Form.Text>
-                        </Form.Group>
+        return (
+            <>
+                <Jumbotron fluid className='text-light bg-dark'>
+                    <Container>
+                        <h1>Search for Drinks!</h1>
+                        <Form onSubmit={handleFormSubmit}>
+                            <Form.Group className="mb-2" controlId="searchForm">
+                                <Form.Control
+                                    name="searchInput"
+                                    className="search-input"
+                                    value={searchInput}
+                                    onChange={(e) => setSearchInput(e.target.value)}
+                                    type="text"
+                                    placeholder="Enter drink name!" />
+                                <Form.Text className="text-muted">
+                                    Example: 'margarita' or 'strawberry daiquiri'
+                                </Form.Text>
+                            </Form.Group>
 
-                        <Button variant="primary" type="submit">
-                            Search
-                        </Button>
-                    </Form>
-                </Container>
-            </Jumbotron>
+                            <Button variant="primary" type="submit">
+                                Search
+                            </Button>
+                        </Form>
+                    </Container>
+                </Jumbotron>
 
             <Container>
                 <h2>
