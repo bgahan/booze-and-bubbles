@@ -6,12 +6,6 @@ import { useMutation } from '@apollo/client'
 import { SAVE_COCKTAIL } from '../utils/mutations'
 import { getSavedCocktailIds, saveCocktailIds } from '../utils/localStorage'
 
-import { getSavedCocktailIds, saveCocktailIds } from '../utils/localStorage'
-
-import { useMutation } from '@apollo/client';
-import { SAVE_COCKTAIL } from '../utils/mutations';
-import Auth from '../utils/auth';
-
 const Home = () => {
     const [searchedDrinks, setSearchedDrinks] = useState([]);
 

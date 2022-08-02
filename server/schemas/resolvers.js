@@ -59,15 +59,13 @@ const resolvers = {
         },
         saveCocktail: async (parent, args, context) => {
             if (context.user) {
-                const cocktail = await Cocktail.create({ ...args, username: context.user.username });
+                const updatedUser = await User.findByIdAndUpdate(
+                    {_id: context.user._id},
+                    {$addToSet: { savedCocktails: args.input}},
+                    {new: true}
+                )
 
-                await User.findByIdAndUpdate(
-                    { _id: context.user._id },
-                    { $push: { cocktails: cocktail._id } },
-                    { new: true }
-                );
-
-                return cocktail;
+                return updatedUser;
             }
 
             throw new AuthenticationError('You need to be logged in!');

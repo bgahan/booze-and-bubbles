@@ -30,7 +30,7 @@ export const SAVE_COCKTAIL = gql`
     saveCocktail(input: $input) {
       username
       _id
-      drinkCount
+      cocktailCount
       savedCocktails {
         strDrink
         strInstructions
@@ -46,7 +46,7 @@ export const REMOVE_COCKTAIL = gql`
     removeCocktail(idDrink: $idDrink) {
       username
       _id
-      drinkCount
+      cocktailCount
       savedCocktails {
         strDrink
         strInstructions
