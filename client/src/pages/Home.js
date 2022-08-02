@@ -28,15 +28,26 @@ const Home = () => {
                 throw new Error('something went wrong!');
             }
 
-            const { drinks } = await response.json();
-            console.log(drinks)
+            let { drinks } = await response.json();
+            console.log(drinks);
 
-            const drinkData = drinks.map((drink) => ({
-                idDrink: drink.idDrink,
-                strDrink: drink.strDrink, 
-                strInstructions: drink.strInstructions,
-                strDrinkThumb: drink.strDrinkThumb,
-            }));
+            if (drinks === null) {
+                drinks = [{
+                    idDrink: '',
+                    strDrink: 'No results found',
+                    strInstructions: 'Please try your search again.',
+                    strDrinkThumb: ''
+                }]
+                console.log(drinks);
+            }
+             
+                const drinkData = drinks.map((drink) => ({
+                    idDrink: drink.idDrink,
+                    strDrink: drink.strDrink,
+                    strInstructions: drink.strInstructions,
+                    strDrinkThumb: drink.strDrinkThumb,
+                })
+                );
 
             setSearchedDrinks(drinkData);
             setSearchInput('');
@@ -44,9 +55,9 @@ const Home = () => {
             console.error(err);
         }
     }
-        return (
-            <>
-                <Jumbotron fluid className='text-light bg-dark'>
+    return (
+        <>
+           <Jumbotron fluid className='text-light bg-dark'>
                     <Container>
                         <h1>Search for Drinks!</h1>
                         <Form onSubmit={handleFormSubmit}>
@@ -97,8 +108,8 @@ const Home = () => {
                         })}
                     </CardColumns>
                 </Container>
-            </>
-        )
-    }
+        </>
+    )
+}
 
 export default Home
