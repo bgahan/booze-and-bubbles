@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
 import Auth from '../utils/auth'
 import { searchCocktails } from '../utils/API';
-import {useMutation} from '@apollo/client'
-import {SAVE_COCKTAIL} from '../utils/mutations'
-import {getSavedCocktailIds, saveCocktailIds} from '../utils/localStorage'
+import { useMutation } from '@apollo/client'
+import { SAVE_COCKTAIL } from '../utils/mutations'
+import { getSavedCocktailIds, saveCocktailIds } from '../utils/localStorage'
 
 const Home = () => {
     const [searchedDrinks, setSearchedDrinks] = useState([]);
@@ -15,9 +15,9 @@ const Home = () => {
 
     useEffect(() => {
         return () => saveCocktailIds(savedDrinkIds);
-      });
+    });
 
-      const handleFormSubmit = async (event) => {
+    const handleFormSubmit = async (event) => {
         event.preventDefault();
 
 
@@ -44,14 +44,14 @@ const Home = () => {
                 }]
                 console.log(drinks);
             }
-             
-                const drinkData = drinks.map((drink) => ({
-                    idDrink: drink.idDrink,
-                    strDrink: drink.strDrink,
-                    strInstructions: drink.strInstructions,
-                    strDrinkThumb: drink.strDrinkThumb,
-                })
-                );
+
+            const drinkData = drinks.map((drink) => ({
+                idDrink: drink.idDrink,
+                strDrink: drink.strDrink,
+                strInstructions: drink.strInstructions,
+                strDrinkThumb: drink.strDrinkThumb,
+            })
+            );
 
             setSearchedDrinks(drinkData);
             setSearchInput('');
@@ -59,78 +59,61 @@ const Home = () => {
             console.error(err);
         }
     }
-    const [saveDrink, {error}] = useMutation(SAVE_COCKTAIL)
-    const handleSaveDrink = async (drinkId) => {
-        const drinkToSave = searchedDrinks.find((drink) => drink.drinkId === drinkId)
-
-        const token = Auth.loggedIn() ? Auth.getToken() : null
-
-        if (!token) {
-            return false
-        }
-
-        try {
-            const {data} = await saveDrink({ variables: {input: drinkToSave}})
-            setSavedDrinkIds([...savedDrinkIds, drinkToSave.drinkId])
-        } catch (err) {
-            console.error(errr)
-        }
-    }
-        return (
-            <>
-                <Jumbotron fluid className='text-light bg-dark'>
-                    <Container>
-                        <h1>Search for Drinks!</h1>
-                        <Form onSubmit={handleFormSubmit}>
-                            <Form.Group className="mb-2" controlId="searchForm">
-                                <Form.Control
-                                    name="searchInput"
-                                    value={searchInput}
-                                    onChange={(e) => setSearchInput(e.target.value)}
-                                    type="text"
-                                    placeholder="Enter drink name!" />
-                                <Form.Text className="text-muted">
-                                    Example: 'margarita' or 'strawberry daiquiri'
-                                </Form.Text>
-                            </Form.Group>
-
-                            <Button variant="primary" type="submit">
-                                Search
-                            </Button>
-                        </Form>
-                    </Container>
-                </Jumbotron>
-
+    return (
+        <>
+            <Jumbotron fluid className='text-light bg-dark'>
                 <Container>
-                    <h2>
-                        {searchedDrinks.length
-                            ? `Viewing ${searchedDrinks.length} results:`
-                            : 'Enter a cocktail!'}
-                    </h2>
-                    <CardColumns>
-                        {searchedDrinks.map((drink) => {
-                            return (
-                                <Card key={drink.idDrink} border='dark'>
-                                    {drink.strDrinkThumb ? (
-                                        <Card.Img src={drink.strDrinkThumb} alt={`The cover for ${drink.strDrink}`} variant='top' />
-                                    ) : null}
-                                    <Card.Body>
-                                        <Card.Title>{drink.strDrink}</Card.Title>
-                                        
-                                        <Card.Text>{drink.strInstructions}</Card.Text>
-                                        {Auth.loggedIn() && (
-                                            <Button>
-                                                Save Drink!
-                                            </Button>
-                                        )}
-                                    </Card.Body>
-                                </Card>
-                            );
-                        })}
-                    </CardColumns>
+                    <h1>Search for Drinks!</h1>
+                    <Form onSubmit={handleFormSubmit}>
+                        <Form.Group className="mb-2" controlId="searchForm">
+                            <Form.Control
+                                name="searchInput"
+                                value={searchInput}
+                                onChange={(e) => setSearchInput(e.target.value)}
+                                type="text"
+                                placeholder="Enter drink name!" />
+                            <Form.Text className="text-muted">
+                                Example: 'margarita' or 'strawberry daiquiri'
+                            </Form.Text>
+                        </Form.Group>
+
+                        <Button variant="primary" type="submit">
+                            Search
+                        </Button>
+                    </Form>
                 </Container>
-            </>
-        )
-    }
+            </Jumbotron>
+
+            <Container>
+                <h2>
+                    {searchedDrinks.length
+                        ? `Viewing ${searchedDrinks.length} results:`
+                        : 'Enter a cocktail!'}
+                </h2>
+                <CardColumns>
+                    {searchedDrinks.map((drink) => {
+                        return (
+                            <Card key={drink.idDrink} border='dark'>
+                                {drink.strDrinkThumb ? (
+                                    <Card.Img src={drink.strDrinkThumb} alt={`The cover for ${drink.strDrink}`} variant='top' />
+                                ) : null}
+                                <Card.Body>
+                                    <Card.Title>{drink.strDrink}</Card.Title>
+
+                                    <Card.Text>{drink.strInstructions}</Card.Text>
+                                    {Auth.loggedIn() && (
+                                        <Button>
+                                            Save Drink
+                                        </Button>
+                                    )}
+                                </Card.Body>
+                            </Card>
+                        );
+                    })}
+                </CardColumns>
+            </Container>
+        </>
+    )
+}
 
 export default Home
