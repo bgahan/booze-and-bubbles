@@ -59,7 +59,7 @@ const Home = () => {
             console.error(err);
         }
     }
-    
+
     // save cocktail to database
     const [addCocktail] = useMutation(SAVE_COCKTAIL);
 
@@ -67,15 +67,15 @@ const Home = () => {
         const drinkInput = searchedDrinks.find(drink => drink.drinkId === drinkId)
 
         try {
-          await addCocktail({
-            variables: { input: drinkInput},
-          })
-          
-          setSaveCocktailIds([...saveCocktailIds, drinkInput.drinkId]);
+            await addCocktail({
+                variables: { input: drinkInput },
+            })
+
+            setSaveCocktailIds([...saveCocktailIds, drinkInput.drinkId]);
         } catch (e) {
-          console.error(e);
+            console.error(e);
         }
-      };
+    };
 
     return (
         <>
@@ -89,7 +89,8 @@ const Home = () => {
                                 value={searchInput}
                                 onChange={(e) => setSearchInput(e.target.value)}
                                 type="text"
-                                placeholder="Enter drink name!" />
+                                placeholder="Enter drink name!" 
+                                autoComplete="off"/>
                             <Form.Text className="text-muted">
                                 Example: 'margarita' or 'strawberry daiquiri'
                             </Form.Text>
@@ -121,14 +122,14 @@ const Home = () => {
                                     <Card.Text>{drink.strInstructions}</Card.Text>
                                     {Auth.loggedIn() && (
                                         <Button
-                                        disabled={saveCocktailIds?.some(saveCocktailId => saveCocktailId === drink.drinkId)}
-                                        className="btn-block btn-info"
-                                        onClick={() => handleClick(drink.drinkId)}
-                                    >
-                                        {saveCocktailIds?.some(saveCocktailId => saveCocktailId === drink.drinkId)
-                                            ? "This drink has been saved!"
-                                            : "Save this drink!"}
-                                    </Button>
+                                            disabled={saveCocktailIds?.some(saveCocktailId => saveCocktailId === drink.drinkId)}
+                                            className="btn-block btn-info"
+                                            onClick={() => handleClick(drink.drinkId)}
+                                        >
+                                            {saveCocktailIds?.some(saveCocktailId => saveCocktailId === drink.drinkId)
+                                                ? "This drink has been saved!"
+                                                : "Save this drink!"}
+                                        </Button>
                                     )}
                                 </Card.Body>
                             </Card>
