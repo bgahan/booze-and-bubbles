@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
+import Auth from '../utils/auth'
 import { searchCocktails } from '../utils/API';
+import {useMutation} from '@apollo/client'
+import {SAVE_COCKTAIL} from '../utils/mutations'
+import {getSavedCocktailIds, saveCocktailIds} from '../utils/localStorage'
 
 const Home = () => {
     const [searchedDrinks, setSearchedDrinks] = useState([]);
 
     const [searchInput, setSearchInput] = useState('');
 
-    // const [savedDrinkIds, setSavedDrinkIds] = useState(getSavedDrinkIds());
+    const [savedDrinkIds, setSavedDrinkIds] = useState(getSavedCocktailIds());
 
-    // useEffect(() => {
-    //     return () => saveDrinkIds(savedDrinkIds);
-    //   });
+    useEffect(() => {
+        return () => saveCocktailIds(savedDrinkIds);
+      });
 
-    const handleFormSubmit = async (event) => {
+      const handleFormSubmit = async (event) => {
         event.preventDefault();
 
 
@@ -28,20 +32,48 @@ const Home = () => {
                 throw new Error('something went wrong!');
             }
 
-            const { drinks } = await response.json();
-            console.log(drinks)
+            let { drinks } = await response.json();
+            console.log(drinks);
 
-            const drinkData = drinks.map((drink) => ({
-                idDrink: drink.idDrink,
-                strDrink: drink.strDrink, 
-                strInstructions: drink.strInstructions,
-                strDrinkThumb: drink.strDrinkThumb,
-            }));
+            if (drinks === null) {
+                drinks = [{
+                    idDrink: '',
+                    strDrink: 'No results found',
+                    strInstructions: 'Please try your search again.',
+                    strDrinkThumb: ''
+                }]
+                console.log(drinks);
+            }
+             
+                const drinkData = drinks.map((drink) => ({
+                    idDrink: drink.idDrink,
+                    strDrink: drink.strDrink,
+                    strInstructions: drink.strInstructions,
+                    strDrinkThumb: drink.strDrinkThumb,
+                })
+                );
 
             setSearchedDrinks(drinkData);
             setSearchInput('');
         } catch (err) {
             console.error(err);
+        }
+    }
+    const [saveDrink, {error}] = useMutation(SAVE_COCKTAIL)
+    const handleSaveDrink = async (drinkId) => {
+        const drinkToSave = searchedDrinks.find((drink) => drink.drinkId === drinkId)
+
+        const token = Auth.loggedIn() ? Auth.getToken() : null
+
+        if (!token) {
+            return false
+        }
+
+        try {
+            const {data} = await saveDrink({ variables: {input: drinkToSave}})
+            setSavedDrinkIds([...savedDrinkIds, drinkToSave.drinkId])
+        } catch (err) {
+            console.error(errr)
         }
     }
         return (
@@ -86,16 +118,11 @@ const Home = () => {
                                         <Card.Title>{drink.strDrink}</Card.Title>
                                         
                                         <Card.Text>{drink.strInstructions}</Card.Text>
-                                        {/* {Auth.loggedIn() && (
-                                            <Button
-                                                disabled={savedDrinkIds?.some((savedDrinkId) => savedDrinkId === book.bookId)}
-                                                className='btn-block btn-info'
-                                                onClick={() => handleSaveBook(book.bookId)}>
-                                                {savedBookIds?.some((savedBookId) => savedBookId === book.bookId)
-                                                    ? 'This book has already been saved!'
-                                                    : 'Save this Book!'}
+                                        {Auth.loggedIn() && (
+                                            <Button>
+                                                Save Drink!
                                             </Button>
-                                        )} */}
+                                        )}
                                     </Card.Body>
                                 </Card>
                             );
