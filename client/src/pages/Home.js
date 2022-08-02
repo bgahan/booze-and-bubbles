@@ -6,16 +6,22 @@ import { useMutation } from '@apollo/client'
 import { SAVE_COCKTAIL } from '../utils/mutations'
 import { getSavedCocktailIds, saveCocktailIds } from '../utils/localStorage'
 
+import { getSavedCocktailIds, saveCocktailIds } from '../utils/localStorage'
+
+import { useMutation } from '@apollo/client';
+import { SAVE_COCKTAIL } from '../utils/mutations';
+import Auth from '../utils/auth';
+
 const Home = () => {
     const [searchedDrinks, setSearchedDrinks] = useState([]);
 
     const [searchInput, setSearchInput] = useState('');
 
-    const [savedDrinkIds, setSavedDrinkIds] = useState(getSavedCocktailIds());
+    const [saveCocktailIds, setSaveCocktailIds] = useState(getSavedCocktailIds());
 
-    useEffect(() => {
-        return () => saveCocktailIds(savedDrinkIds);
-    });
+    // useEffect(() => {
+    //     return () => saveCocktailIds(saveCocktailIds);
+    //   });
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
@@ -59,31 +65,48 @@ const Home = () => {
             console.error(err);
         }
     }
-        return (
-            <>
-                <Jumbotron fluid className='text-light bg-dark'>
-                    <Container>
-                        <h1>Search for Drinks!</h1>
-                        <Form onSubmit={handleFormSubmit}>
-                            <Form.Group className="mb-2" controlId="searchForm">
-                                <Form.Control
-                                    name="searchInput"
-                                    className="search-input"
-                                    value={searchInput}
-                                    onChange={(e) => setSearchInput(e.target.value)}
-                                    type="text"
-                                    placeholder="Enter drink name!" />
-                                <Form.Text className="text-muted">
-                                    Example: 'margarita' or 'strawberry daiquiri'
-                                </Form.Text>
-                            </Form.Group>
+    
+    // save cocktail to database
+    const [addCocktail] = useMutation(SAVE_COCKTAIL);
 
-                            <Button variant="primary" type="submit">
-                                Search
-                            </Button>
-                        </Form>
-                    </Container>
-                </Jumbotron>
+    const handleClick = async drinkId => {
+        const drinkInput = searchedDrinks.find(drink => drink.drinkId === drinkId)
+
+        try {
+          await addCocktail({
+            variables: { input: drinkInput},
+          })
+          
+          setSaveCocktailIds([...saveCocktailIds, drinkInput.drinkId]);
+        } catch (e) {
+          console.error(e);
+        }
+      };
+
+    return (
+        <>
+            <Jumbotron fluid className='text-light bg-dark'>
+                <Container>
+                    <h1>Search for Drinks!</h1>
+                    <Form onSubmit={handleFormSubmit}>
+                        <Form.Group className="mb-2" controlId="searchForm">
+                            <Form.Control
+                                name="searchInput"
+                                value={searchInput}
+                                onChange={(e) => setSearchInput(e.target.value)}
+                                type="text"
+                                placeholder="Enter drink name!" />
+                            <Form.Text className="text-muted">
+                                Example: 'margarita' or 'strawberry daiquiri'
+                            </Form.Text>
+                        </Form.Group>
+
+                        <Button variant="primary" type="submit">
+                            Search
+                        </Button>
+                    </Form>
+                </Container>
+            </Jumbotron>
 
             <Container>
                 <h2>
@@ -103,9 +126,15 @@ const Home = () => {
 
                                     <Card.Text>{drink.strInstructions}</Card.Text>
                                     {Auth.loggedIn() && (
-                                        <Button>
-                                            Save Drink
-                                        </Button>
+                                        <Button
+                                        disabled={saveCocktailIds?.some(saveCocktailId => saveCocktailId === drink.drinkId)}
+                                        className="btn-block btn-info"
+                                        onClick={() => handleClick(drink.drinkId)}
+                                    >
+                                        {saveCocktailIds?.some(saveCocktailId => saveCocktailId === drink.drinkId)
+                                            ? "This drink has been saved!"
+                                            : "Save this drink!"}
+                                    </Button>
                                     )}
                                 </Card.Body>
                             </Card>
