@@ -63,15 +63,15 @@ const Home = () => {
     // save cocktail to database
     const [addCocktail] = useMutation(SAVE_COCKTAIL);
 
-    const handleClick = async drinkId => {
-        const drinkInput = searchedDrinks.find(drink => drink.drinkId === drinkId)
+    const handleClick = async idDrink => {
+        const drinkInput = searchedDrinks.find(drink => drink.idDrink === idDrink)
 
         try {
             await addCocktail({
                 variables: { input: drinkInput },
             })
 
-            setSavedCocktailIds([...savedCocktailIds, drinkInput.drinkId]);
+            setSavedCocktailIds([...savedCocktailIds, drinkInput.idDrink]);
         } catch (e) {
             console.error(e);
         }
@@ -123,11 +123,11 @@ const Home = () => {
                                     <Card.Text>{drink.strInstructions}</Card.Text>
                                     {Auth.loggedIn() && (
                                         <Button
-                                            disabled={savedCocktailIds?.some(saveCocktailId => saveCocktailId === drink.drinkId)}
+                                            disabled={savedCocktailIds?.some((saveCocktailId) => saveCocktailId === drink.idDrink)}
                                             className="btn-block btn-info"
-                                            onClick={() => handleClick(drink.drinkId)}
+                                            onClick={() => handleClick(drink.idDrink)}
                                         >
-                                            {savedCocktailIds?.some(saveCocktailId => saveCocktailId === drink.drinkId)
+                                            {savedCocktailIds?.some(saveCocktailId => saveCocktailId === drink.idDrink)
                                                 ? "Saved!"
                                                 : "Save this drink!"}
                                         </Button>
