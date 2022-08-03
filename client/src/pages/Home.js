@@ -86,6 +86,7 @@ const Home = () => {
                         <Form.Group className="mb-2" controlId="searchForm">
                             <Form.Control
                                 name="searchInput"
+                                className="search-input"
                                 value={searchInput}
                                 onChange={(e) => setSearchInput(e.target.value)}
                                 type="text"

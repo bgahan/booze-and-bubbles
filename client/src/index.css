@@ -28,7 +28,30 @@ code {
 .search-input {
   border-radius: 10px;
 }
+.search-input:focus {
+  border-color: #12433d;
+}
+
 
 .btn {
   border-radius: 10px;
+}
+
+.bg-dark {
+  background-color: rgb(203, 246, 239) !important;
+}
+.border-dark {
+  border-color: #12433d !important;
+  border-width: 1px;
+}
+.btn-primary {
+  background-color: rgb(20 67 61) !important;
+  border-color: rgb(20 67 61) !important;
+}
+.title-header {
+  color: #12433d;
+}
+
+a {
+  color: #12433d !important;
 }
