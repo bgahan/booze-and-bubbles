@@ -51,3 +51,7 @@ code {
 .title-header {
   color: #12433d;
 }
+
+a {
+  color: #12433d !important;
+}
