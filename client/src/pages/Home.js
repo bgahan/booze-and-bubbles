@@ -63,12 +63,12 @@ const Home = () => {
     // save cocktail to database
     const [addCocktail] = useMutation(SAVE_COCKTAIL);
 
-    const handleClick = async drinkId => {
-        const drinkInput = searchedDrinks.find(drink => drink.drinkId === drinkId)
+    const handleClick = async (drinkId) => {
+        const drinkInput = searchedDrinks.find((drink) => drink.drinkId === drinkId)
 
         try {
             await addCocktail({
-                variables: { input: drinkInput },
+                variables: { input: drinkInput }
             })
 
             setSavedCocktailIds([...savedCocktailIds, drinkInput.drinkId]);
