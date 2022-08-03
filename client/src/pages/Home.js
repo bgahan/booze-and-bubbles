@@ -11,11 +11,11 @@ const Home = () => {
 
     const [searchInput, setSearchInput] = useState('');
 
-    const [saveCocktailIds, setSaveCocktailIds] = useState(getSavedCocktailIds());
+    const [savedCocktailIds, setSavedCocktailIds] = useState(getSavedCocktailIds());
 
-    // useEffect(() => {
-    //     return () => saveCocktailIds(saveCocktailIds);
-    //   });
+    useEffect(() => {
+        return () => saveCocktailIds(savedCocktailIds);
+      });
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
@@ -71,7 +71,7 @@ const Home = () => {
                 variables: { input: drinkInput },
             })
 
-            setSaveCocktailIds([...saveCocktailIds, drinkInput.drinkId]);
+            setSavedCocktailIds([...savedCocktailIds, drinkInput.drinkId]);
         } catch (e) {
             console.error(e);
         }
@@ -89,8 +89,8 @@ const Home = () => {
                                 value={searchInput}
                                 onChange={(e) => setSearchInput(e.target.value)}
                                 type="text"
-                                placeholder="Enter drink name!" 
-                                autoComplete="off"/>
+                                placeholder="Enter drink name!"
+                                autoComplete="off" />
                             <Form.Text className="text-muted">
                                 Example: 'margarita' or 'strawberry daiquiri'
                             </Form.Text>
@@ -122,11 +122,11 @@ const Home = () => {
                                     <Card.Text>{drink.strInstructions}</Card.Text>
                                     {Auth.loggedIn() && (
                                         <Button
-                                            disabled={saveCocktailIds?.some(saveCocktailId => saveCocktailId === drink.drinkId)}
+                                            disabled={savedCocktailIds?.some(saveCocktailId => saveCocktailId === drink.drinkId)}
                                             className="btn-block btn-info"
                                             onClick={() => handleClick(drink.drinkId)}
                                         >
-                                            {saveCocktailIds?.some(saveCocktailId => saveCocktailId === drink.drinkId)
+                                            {savedCocktailIds?.some(saveCocktailId => saveCocktailId === drink.drinkId)
                                                 ? "This drink has been saved!"
                                                 : "Save this drink!"}
                                         </Button>
