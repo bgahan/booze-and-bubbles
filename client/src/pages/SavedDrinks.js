@@ -29,13 +29,14 @@ const SavedDrinks = () => {
                 } 
                 </h2>
             </Container>
-            <CardColumns>
+            <CardColumns className='p-4'>
           {userData.savedCocktails?.map((drink) => {
             return (
                 <Card key={drink?.drinkId} border="dark">
                 {drink?.strDrinkThumb ? (
                   <Card.Img
                     src={drink?.strDrinkThumb}
+                    className="savedDrinkImg"
                   />
                 ) : null}
                 <Card.Body>

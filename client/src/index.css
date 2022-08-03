@@ -7,6 +7,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+:root {
+  --pre-set-orange: #fbaf00ff;
+  --pre-set-yellow: #ffd639ff;
+  --pre-set-cyan: #d7f9ffff;
+  --pre-set-baby-blue: #afcbffff;
+  --pre-set-navy-blue: #0e1c36ff;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -16,6 +24,7 @@ code {
   display: flex;
   justify-content: center;
 }
+
 .card {
   border-radius: 2rem;
 }
@@ -28,6 +37,7 @@ code {
 .search-input {
   border-radius: 10px;
 }
+
 .search-input:focus {
   border-color: #12433d;
 }
@@ -40,18 +50,42 @@ code {
 .bg-dark {
   background-color: rgb(203, 246, 239) !important;
 }
+
 .border-dark {
   border-color: #12433d !important;
   border-width: 1px;
 }
+
 .btn-primary {
   background-color: rgb(20 67 61) !important;
   border-color: rgb(20 67 61) !important;
 }
+
 .title-header {
   color: #12433d;
 }
 
 a {
   color: #12433d !important;
+}
+
+.savedDrinkImg {
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
+}
+
+.jumbotron {
+  padding: 3%;
+}
+
+.jumbotron h1 {
+  color: #12433d;
+}
+
+.lactive-class {
+  background-color: red;
+}
+
+.not-active-class {
+background-color: green;
 }
