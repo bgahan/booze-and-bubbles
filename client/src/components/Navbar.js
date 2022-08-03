@@ -10,6 +10,7 @@ import SignUpForm from './SignupForm';
 import LoginForm from './LoginForm';
 
 import Auth from '../utils/auth';
+import { NavLink } from 'react-router-dom';
 
 const AppNavbar = () => {
     const [showModal, setShowModal] = useState(false);

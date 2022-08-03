@@ -108,14 +108,14 @@ const Home = () => {
                 <h2>
                     {searchedDrinks.length
                         ? `Viewing ${searchedDrinks.length} results:`
-                        : 'Enter a cocktail!'}
+                        : ''}
                 </h2>
                 <CardColumns>
                     {searchedDrinks.map((drink) => {
                         return (
                             <Card key={drink.idDrink} border='dark'>
                                 {drink.strDrinkThumb ? (
-                                    <Card.Img src={drink.strDrinkThumb} alt={`The cover for ${drink.strDrink}`} variant='top' />
+                                    <Card.Img src={drink.strDrinkThumb} alt={`${drink.strDrink}`} variant='top' />
                                 ) : null}
                                 <Card.Body>
                                     <Card.Title>{drink.strDrink}</Card.Title>
@@ -128,7 +128,7 @@ const Home = () => {
                                             onClick={() => handleClick(drink.drinkId)}
                                         >
                                             {savedCocktailIds?.some(saveCocktailId => saveCocktailId === drink.drinkId)
-                                                ? "This drink has been saved!"
+                                                ? "Saved!"
                                                 : "Save this drink!"}
                                         </Button>
                                     )}
