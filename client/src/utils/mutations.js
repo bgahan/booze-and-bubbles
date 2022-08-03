@@ -30,7 +30,7 @@ export const SAVE_COCKTAIL = gql`
     saveCocktail(input: $input) {
       username
       _id
-      drinkCount
+      cocktailCount
       savedCocktails {
         strDrink
         strInstructions
@@ -42,11 +42,11 @@ export const SAVE_COCKTAIL = gql`
 `;
 
 export const REMOVE_COCKTAIL = gql`
-  mutation removeCocktail($idDrink: ID!) {
+  mutation removeCocktail($idDrink: String!) {
     removeCocktail(idDrink: $idDrink) {
       username
       _id
-      drinkCount
+      cocktailCount
       savedCocktails {
         strDrink
         strInstructions
