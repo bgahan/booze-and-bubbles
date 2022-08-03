@@ -5,14 +5,13 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Modal from 'react-bootstrap/Modal';
 import Tab from 'react-bootstrap/Tab';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import SignUpForm from './SignupForm';
 import LoginForm from './LoginForm';
 
 import Auth from '../utils/auth';
-import { NavLink } from 'react-router-dom';
 
 const AppNavbar = () => {
+    // Modal for login/signup
     const [showModal, setShowModal] = useState(false);
 
     return (

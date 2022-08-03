@@ -1,18 +1,12 @@
 import React from 'react'
-import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
-import Auth from '../utils/auth'
+import { Jumbotron, Container, Card, CardColumns } from 'react-bootstrap';
 import { useQuery } from '@apollo/client';
 import { GET_ME } from '../utils/queries';
 
 const SavedDrinks = () => {
-
-    const {data, loading} = useQuery(GET_ME)
+    // Return drinks by using the GET_ME query as drinks are attached to user
+    const {data} = useQuery(GET_ME)
     const userData = data?.me || []
-
-    if (loading) {
-        return <h2>LOADING</h2>
-    }
 
     return (
         <>
@@ -42,9 +36,6 @@ const SavedDrinks = () => {
                 <Card.Body>
                   <Card.Title>{drink?.strDrink}</Card.Title>
                   <Card.Text>{drink?.strInstructions}</Card.Text>
-                  <Button>
-                    Remove
-                  </Button>
                 </Card.Body>
               </Card>
             );

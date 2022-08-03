@@ -16,7 +16,7 @@ const Home = () => {
     useEffect(() => {
         return () => saveCocktailIds(savedCocktailIds);
       });
-
+    //   Search engine functionality
     const handleFormSubmit = async (event) => {
         event.preventDefault();
 
@@ -34,7 +34,7 @@ const Home = () => {
 
             let { drinks } = await response.json();
             console.log(drinks);
-
+            // Return error message if no drinks found
             if (drinks === null) {
                 drinks = [{
                     idDrink: '',
@@ -62,7 +62,7 @@ const Home = () => {
 
     // save cocktail to database
     const [addCocktail] = useMutation(SAVE_COCKTAIL);
-
+    // Button to save drinks to personal dashboard
     const handleClick = async idDrink => {
         const drinkInput = searchedDrinks.find(drink => drink.idDrink === idDrink)
 
@@ -103,7 +103,7 @@ const Home = () => {
                     </Form>
                 </Container>
             </Jumbotron>
-
+            {/* Container to display all results in cards */}
             <Container>
                 <h2>
                     {searchedDrinks.length
@@ -127,6 +127,7 @@ const Home = () => {
                                             className="btn-block btn-info"
                                             onClick={() => handleClick(drink.idDrink)}
                                         >
+                                            {/* If drink previously saved then grey out the save button */}
                                             {savedCocktailIds?.some(saveCocktailId => saveCocktailId === drink.idDrink)
                                                 ? "Saved!"
                                                 : "Save this drink!"}
