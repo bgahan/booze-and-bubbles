@@ -9,14 +9,6 @@ a:hover {
   text-shadow: 2px 2px 4px #12433d
 }
 
-:root {
-  --pre-set-orange: #fbaf00ff;
-  --pre-set-yellow: #ffd639ff;
-  --pre-set-cyan: #d7f9ffff;
-  --pre-set-baby-blue: #afcbffff;
-  --pre-set-navy-blue: #0e1c36ff;
-}
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -83,4 +75,3 @@ a {
 .jumbotron h1 {
   color: #12433d;
 }
-

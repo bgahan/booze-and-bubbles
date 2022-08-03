@@ -68,7 +68,7 @@ const Home = () => {
 
         try {
             await addCocktail({
-                variables: { input: drinkInput },
+                variables: { input: drinkInput }
             })
 
             setSavedCocktailIds([...savedCocktailIds, drinkInput.idDrink]);
