@@ -31,13 +31,6 @@ const SignupForm = () => {
 
         try {
             const {data} = await addUser({variables: {...userFormData}});
-
-            // if (!response.ok) {
-            //     throw new Error('something went wrong!');
-            // }
-
-            // const { token, user } = await response.json();
-            // console.log(user);
             Auth.login(data.addUser.token);
         } catch (err) {
             console.error(err);
@@ -68,6 +61,7 @@ const SignupForm = () => {
                         name='username'
                         onChange={handleInputChange}
                         value={userFormData.username}
+                        autoComplete="off"
                         required
                     />
                     <Form.Control.Feedback type='invalid'>Username is required!</Form.Control.Feedback>
@@ -81,6 +75,7 @@ const SignupForm = () => {
                         name='email'
                         onChange={handleInputChange}
                         value={userFormData.email}
+                        autoComplete="off"
                         required
                     />
                     <Form.Control.Feedback type='invalid'>Email is required!</Form.Control.Feedback>
@@ -94,6 +89,7 @@ const SignupForm = () => {
                         name='password'
                         onChange={handleInputChange}
                         value={userFormData.password}
+                        autoComplete="off"
                         required
                     />
                     <Form.Control.Feedback type='invalid'>Password is required!</Form.Control.Feedback>

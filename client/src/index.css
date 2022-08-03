@@ -1,10 +1,20 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Raleway', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+a:hover {
+  text-shadow: 2px 2px 4px #12433d
+}
+
+:root {
+  --pre-set-orange: #fbaf00ff;
+  --pre-set-yellow: #ffd639ff;
+  --pre-set-cyan: #d7f9ffff;
+  --pre-set-baby-blue: #afcbffff;
+  --pre-set-navy-blue: #0e1c36ff;
 }
 
 code {
@@ -16,6 +26,7 @@ code {
   display: flex;
   justify-content: center;
 }
+
 .card {
   border-radius: 2rem;
 }
@@ -28,6 +39,7 @@ code {
 .search-input {
   border-radius: 10px;
 }
+
 .search-input:focus {
   border-color: #12433d;
 }
@@ -40,14 +52,17 @@ code {
 .bg-dark {
   background-color: rgb(203, 246, 239) !important;
 }
+
 .border-dark {
   border-color: #12433d !important;
   border-width: 1px;
 }
+
 .btn-primary {
   background-color: rgb(20 67 61) !important;
   border-color: rgb(20 67 61) !important;
 }
+
 .title-header {
   color: #12433d;
 }
@@ -55,3 +70,17 @@ code {
 a {
   color: #12433d !important;
 }
+
+.savedDrinkImg {
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
+}
+
+.jumbotron {
+  padding: 3%;
+}
+
+.jumbotron h1 {
+  color: #12433d;
+}
+
