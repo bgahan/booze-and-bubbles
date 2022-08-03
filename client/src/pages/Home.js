@@ -63,7 +63,7 @@ const Home = () => {
             <>
                 <Jumbotron fluid className='text-light bg-dark'>
                     <Container>
-                        <h1>Search for Drinks!</h1>
+                        <h1 className="title-header">Search for Drinks!</h1>
                         <Form onSubmit={handleFormSubmit}>
                             <Form.Group className="mb-2" controlId="searchForm">
                                 <Form.Control
