@@ -35,4 +35,4 @@ https://github.com/randronaco1027/booze-and-bubbles
 
 Heroku: 
 
-https://desolate-cove-27377.herokuapp.com/
+https://snehp491-booze-bubbles.herokuapp.com/
